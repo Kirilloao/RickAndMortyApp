@@ -29,34 +29,21 @@ final class DetailViewController: UIViewController {
         
         fetchImage()
         
-        info = checkingForNull([
+        info = [
             character.name,
             character.gender,
             character.status,
-            character.species]
-        )
-        
+            character.species
+        ]
+
         infoTableView.dataSource = self
         infoTableView.delegate = self
-        
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let episodeVC = segue.destination as? EpisodesViewController else { return }
         episodeVC.character = character
-    }
-    
-    // MARK: - Private Methods
-    private func checkingForNull(_ values: [String]) -> [String]{
-        var result = [String]()
-        
-        values.forEach { value in
-            if value != "" {
-                result.append(value)
-            }
-        }
-        return result
     }
 }
 
