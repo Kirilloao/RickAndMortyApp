@@ -27,6 +27,8 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
+        
         fetchImage()
         
         info = [
@@ -35,7 +37,7 @@ final class DetailViewController: UIViewController {
             character.status,
             character.species
         ]
-
+        
         infoTableView.dataSource = self
         infoTableView.delegate = self
     }
@@ -45,7 +47,18 @@ final class DetailViewController: UIViewController {
         guard let episodeVC = segue.destination as? EpisodesViewController else { return }
         episodeVC.character = character
     }
+    
+    // MARK: - Private Methods
+    private func setupNavigationBar() {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.largeTitleTextAttributes = [.font: UIFont.boldSystemFont(ofSize: 28)]
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        
+        title = character.name
+    }
 }
+
+
 
 // MARK: - Networking
 extension DetailViewController {
@@ -71,7 +84,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = infoTableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
-       
+        
         var content = cell.defaultContentConfiguration()
         
         let oneInfo = info[indexPath.row]
@@ -87,9 +100,11 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate  {
         }
         
         content.text = oneInfo
-       
+        
         cell.contentConfiguration = content
         
         return cell
     }
+    
+    
 }

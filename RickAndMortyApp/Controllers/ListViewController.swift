@@ -34,6 +34,8 @@ final class ListViewController: UIViewController {
         fetchCharacters(from: Links.rickAndMortyURL.rawValue)
         
         previousBarButton.isEnabled = false
+        
+        print(mainTableView.rowHeight)
     }
     
     // MARK: - Navigation
